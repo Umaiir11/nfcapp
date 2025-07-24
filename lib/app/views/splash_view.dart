@@ -22,6 +22,9 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
+
+
+      //test
       duration: Duration(milliseconds: 1200),
     );
 
