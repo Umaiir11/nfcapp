@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../widgets/custom_button.dart';
 import '../configs/app_colors.dart';
@@ -16,135 +15,99 @@ class WriteNfcScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          'Write to NFC Card',
-          style: TextStyle(
-            color: AppColors.surface,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: AppColors.secondary,
+        backgroundColor: AppColors.primary,
         elevation: 0,
+        title: Text(
+          'Record Sign-Out',
+
+          style: TextStyle(color: AppColors.surface, fontSize: 18.sp, fontWeight: FontWeight.w700, letterSpacing: 0.5),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.surface),
+          icon: Icon(Icons.arrow_back, color: AppColors.surface, size: 24.w),
           onPressed: () => Get.back(),
         ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
       ),
+
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 20),
-
+              SizedBox(height: 20.h),
               Text(
-                'Enter Data to Write',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
-                ),
+                'Sign-Out Data',
+                style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
               ),
-
-              SizedBox(height: 10),
-
+              SizedBox(height: 8.h),
               Text(
-                'This data will be written to your NFC card',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: AppColors.textSecondary,
-                ),
+                'Enter staff sign-out details for NFC card',
+                style: TextStyle(fontSize: 14.sp, color: AppColors.textSecondary, height: 1.4),
               ),
-
-              SizedBox(height: 30),
-
-              // Input Field
+              SizedBox(height: 24.h),
               Container(
                 decoration: BoxDecoration(
                   color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 8,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
+                  borderRadius: BorderRadius.circular(12.r),
+                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 12.r, offset: Offset(0, 4.h))],
                 ),
                 child: TextField(
                   controller: textController,
-                  maxLines: 4,
+                  maxLines: 3,
                   decoration: InputDecoration(
-                    hintText: 'Enter text to write to NFC card...',
-                    hintStyle: TextStyle(color: AppColors.textSecondary),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
-                    ),
+                    hintText: 'Enter sign-out details...',
+                    hintStyle: TextStyle(color: AppColors.textSecondary.withOpacity(0.7), fontSize: 14.sp),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.r), borderSide: BorderSide.none),
                     filled: true,
                     fillColor: AppColors.surface,
-                    contentPadding: EdgeInsets.all(16),
+                    contentPadding: EdgeInsets.all(16.w),
                   ),
                   onChanged: (value) => controller.updateWriteData(value),
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.textPrimary,
-                  ),
+                  style: TextStyle(fontSize: 14.sp, color: AppColors.textPrimary, height: 1.4),
                 ),
               ),
-
-              SizedBox(height: 40),
-
-              // Write Button
-              Obx(() => PrimaryButton(
-                text: controller.isLoading.value ? 'Writing...' : 'Write to Card',
-                onPressed: (controller.isLoading.value || controller.writeData.value.isEmpty)
-                    ? null
-                    : controller.writeToNfcCard,
-                color: AppColors.secondary,
-                icon: Icons.edit,
-              )),
-
-              SizedBox(height: 30),
-
-              // Instructions
+              SizedBox(height: 32.h),
+              Obx(
+                () => PrimaryButton(
+                  text: controller.isLoading.value ? 'Writing...' : 'Write Sign-Out',
+                  onPressed: (controller.isLoading.value || controller.writeData.value.isEmpty) ? null : controller.writeToNfcCard,
+                  color: AppColors.primaryDark,
+                  icon: Icons.edit,
+                ),
+              ),
+              SizedBox(height: 24.h),
               Container(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.all(12.w),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: AppColors.warning.withOpacity(0.3),
-                  ),
+                  color: AppColors.warning.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(color: AppColors.warning.withOpacity(0.3), width: 1.w),
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: AppColors.warning,
-                      size: 24,
-                    ),
-                    SizedBox(width: 12),
+                    Icon(Icons.info_outline, color: AppColors.warning, size: 20.w),
+                    SizedBox(width: 12.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Important',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.textPrimary,
-                            ),
+                            'Note',
+                            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 4.h),
                           Text(
-                            'Make sure your NFC card is writable. Some cards may be read-only.',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.textSecondary,
-                            ),
+                            'Ensure the NFC card is writable before proceeding.',
+                            style: TextStyle(fontSize: 12.sp, color: AppColors.textSecondary, height: 1.4),
                           ),
                         ],
                       ),
@@ -152,7 +115,6 @@ class WriteNfcScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
               Spacer(),
             ],
           ),

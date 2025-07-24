@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../widgets/custom_button.dart';
 import '../configs/app_colors.dart';
@@ -16,32 +15,41 @@ class ScanNfcScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          'Scan NFC Card',
-          style: TextStyle(
-            color: AppColors.surface,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
         backgroundColor: AppColors.primary,
         elevation: 0,
+        title: Text(
+          'Scan Staff NFC',
+          style: TextStyle(
+            color: AppColors.surface,
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
+          ),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColors.surface),
+          icon: Icon(Icons.arrow_back, color: AppColors.surface, size: 24.w),
           onPressed: () => Get.back(),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
         ),
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             children: [
-              SizedBox(height: 40),
-
-              // NFC Animation
+              SizedBox(height: 32.h),
               Obx(() => AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                width: 200,
-                height: 200,
+                duration: Duration(milliseconds: 600),
+                width: 180.w,
+                height: 180.w,
                 decoration: BoxDecoration(
                   color: controller.isLoading.value
                       ? AppColors.primary.withOpacity(0.1)
@@ -50,16 +58,18 @@ class ScanNfcScreen extends StatelessWidget {
                   border: Border.all(
                     color: controller.isLoading.value
                         ? AppColors.primary
-                        : AppColors.divider,
-                    width: 2,
+                        : AppColors.divider.withOpacity(0.5),
+                    width: 1.5.w,
                   ),
-                  boxShadow: controller.isLoading.value ? [
+                  boxShadow: controller.isLoading.value
+                      ? [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
-                      blurRadius: 20,
-                      spreadRadius: 5,
+                      color: AppColors.primary.withOpacity(0.2),
+                      blurRadius: 16.r,
+                      spreadRadius: 4.r,
                     ),
-                  ] : [],
+                  ]
+                      : [],
                 ),
                 child: Center(
                   child: controller.isLoading.value
@@ -68,68 +78,63 @@ class ScanNfcScreen extends StatelessWidget {
                     children: [
                       Icon(
                         Icons.nfc,
-                        size: 60,
+                        size: 48.w,
                         color: AppColors.primary,
                       ),
-                      SizedBox(height: 10),
-                      CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.primary,
+                      SizedBox(height: 12.h),
+                      SizedBox(
+                        width: 24.w,
+                        height: 24.w,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.primary,
+                          ),
+                          strokeWidth: 2.w,
                         ),
                       ),
                     ],
                   )
                       : Icon(
                     Icons.nfc,
-                    size: 80,
+                    size: 64.w,
                     color: AppColors.textSecondary,
                   ),
                 ),
               )),
-
-              SizedBox(height: 30),
-
+              SizedBox(height: 24.h),
               Text(
-                'Hold card near device',
+                'Scan NFC Card',
                 style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
                 ),
               ),
-
-              SizedBox(height: 10),
-
+              SizedBox(height: 8.h),
               Text(
-                'Position your NFC card close to the back of your phone',
+                'Hold the staff NFC card near your device',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14.sp,
                   color: AppColors.textSecondary,
+                  height: 1.4,
                 ),
               ),
-
-              SizedBox(height: 40),
-
-              // Scan Button
+              SizedBox(height: 32.h),
               Obx(() => PrimaryButton(
                 text: controller.isLoading.value ? 'Scanning...' : 'Start Scan',
                 onPressed: controller.isLoading.value ? null : controller.readNfcCard,
                 color: AppColors.primary,
                 icon: Icons.radar,
               )),
-
-              SizedBox(height: 30),
-
-              // Card Data Display
+              SizedBox(height: 24.h),
               Obx(() => controller.cardData.value.isNotEmpty
                   ? NfcCardView(
-                title: 'Card Information',
+                title: 'Staff Card Data',
                 data: controller.cardData.value,
                 onClear: controller.clearCardData,
               )
                   : SizedBox.shrink()),
-
               Spacer(),
             ],
           ),

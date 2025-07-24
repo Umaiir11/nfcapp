@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app/configs/app_colors.dart';
 
@@ -23,21 +23,35 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 56,
+      height: 48.h, // Responsive height
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.2),
+            blurRadius: 8.r,
+            offset: Offset(0, 2.h),
+          ),
+        ],
+      ),
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
-          disabledBackgroundColor: color.withOpacity(0.5),
+          disabledBackgroundColor: color.withOpacity(0.4),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(12.r),
           ),
-          elevation: 3,
-          shadowColor: color.withOpacity(0.3),
+          elevation: 0, // Flat design for modern look
         ),
         child: isLoading
-            ? CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(AppColors.surface),
+            ? SizedBox(
+          width: 24.w,
+          height: 24.w,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.surface),
+            strokeWidth: 2.w,
+          ),
         )
             : Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -46,16 +60,17 @@ class PrimaryButton extends StatelessWidget {
               Icon(
                 icon,
                 color: AppColors.surface,
-                size: 20,
+                size: 18.w,
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 8.w),
             ],
             Text(
               text,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w600,
                 color: AppColors.surface,
+                letterSpacing: 0.5,
               ),
             ),
           ],

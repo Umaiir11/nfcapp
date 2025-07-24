@@ -35,9 +35,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   get: ^4.6.6
-  nfc_manager: ^4.0.2
+
   flutter_nfc_kit: ^3.6.0
   ndef: ^0.3.4
+  flutter_screenutil: ^5.9.3
 
 
 dev_dependencies:

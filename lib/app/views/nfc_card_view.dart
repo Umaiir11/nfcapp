@@ -1,8 +1,6 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../widgets/custom_snackbar.dart';
 import '../configs/app_colors.dart';
@@ -23,15 +21,15 @@ class NfcCardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 10,
-            offset: Offset(0, 2),
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 12.r,
+            offset: Offset(0, 4.h),
           ),
         ],
       ),
@@ -44,8 +42,8 @@ class NfcCardView extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
                   color: AppColors.textPrimary,
                 ),
               ),
@@ -55,35 +53,34 @@ class NfcCardView extends StatelessWidget {
                   icon: Icon(
                     Icons.clear,
                     color: AppColors.textSecondary,
+                    size: 20.w,
                   ),
                 ),
             ],
           ),
-
-          SizedBox(height: 15),
-
+          SizedBox(height: 12.h),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
               color: AppColors.background,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(10.r),
               border: Border.all(
-                color: AppColors.divider,
+                color: AppColors.divider.withOpacity(0.5),
+                width: 1.w,
               ),
             ),
             child: Text(
               data,
               style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'monospace',
+                fontSize: 13.sp,
+                fontFamily: 'RobotoMono',
                 color: AppColors.textPrimary,
+                height: 1.5,
               ),
             ),
           ),
-
-          SizedBox(height: 15),
-
+          SizedBox(height: 12.h),
           Row(
             children: [
               Expanded(
@@ -92,14 +89,22 @@ class NfcCardView extends StatelessWidget {
                     Clipboard.setData(ClipboardData(text: data));
                     CustomSnackbar.showSuccess('Copied to clipboard');
                   },
-                  icon: Icon(Icons.copy, size: 16),
-                  label: Text('Copy'),
+                  icon: Icon(Icons.copy, size: 16.w, color: AppColors.surface),
+                  label: Text(
+                    'Copy',
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.surface,
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
-                    foregroundColor: AppColors.surface,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    elevation: 0,
                   ),
                 ),
               ),

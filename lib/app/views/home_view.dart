@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:nfcapp/app/views/scan_nfc_view.dart';
-import 'package:nfcapp/app/views/write_nfc.dart';
 
 import '../../widgets/custom_button.dart';
 import '../configs/app_colors.dart';
 import '../controller/nfc_controller.dart';
+import 'scan_nfc_view.dart';
+import 'write_nfc.dart';
 
 class HomeScreen extends StatelessWidget {
   final NfcController controller = Get.find<NfcController>();
@@ -17,37 +16,45 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text(
-          'NFC Card Tools',
-          style: TextStyle(
-            color: AppColors.surface,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
         backgroundColor: AppColors.primary,
         elevation: 0,
+        title: Text(
+          'Staff NFC Sign-In',
+          style: TextStyle(
+            color: AppColors.surface,
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
+          ),
+        ),
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 40),
-
-              // Header Section
+              SizedBox(height: 32.h),
               Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(16.w),
                 decoration: BoxDecoration(
                   color: AppColors.surface,
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 10,
-                      offset: Offset(0, 2),
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 12.r,
+                      offset: Offset(0, 4.h),
                     ),
                   ],
                 ),
@@ -55,91 +62,83 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.nfc,
-                      size: 80,
+                      size: 64.w,
                       color: AppColors.primary,
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 16.h),
                     Text(
-                      'NFC Card Tools',
+                      'Staff Sign-In/Out',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
                         color: AppColors.textPrimary,
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 8.h),
                     Text(
-                      'Scan or write to your NFC card securely',
+                      'Effortlessly manage staff attendance with NFC',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         color: AppColors.textSecondary,
+                        height: 1.4,
                       ),
                     ),
                   ],
                 ),
               ),
-
-              SizedBox(height: 50),
-
-              // Action Buttons
+              SizedBox(height: 40.h),
               PrimaryButton(
-                text: '📥 Scan Card (Read)',
+                text: 'Sign In',
                 onPressed: () => Get.to(() => ScanNfcScreen()),
                 color: AppColors.primary,
-                icon: Icons.nfc,
+                icon: Icons.login,
               ),
-
-              SizedBox(height: 20),
-
+              SizedBox(height: 16.h),
               PrimaryButton(
-                text: '✍️ Write to Card',
+                text: 'Sign Out',
                 onPressed: () => Get.to(() => WriteNfcScreen()),
-                color: AppColors.secondary,
-                icon: Icons.edit,
+                color: AppColors.primary.withOpacity(0.8),
+                icon: Icons.logout,
               ),
-
               Spacer(),
-
-              // NFC Status
               Obx(() => Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   color: controller.isNfcSupported.value
-                      ? AppColors.success.withOpacity(0.1)
-                      : AppColors.error.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
+                      ? AppColors.success.withOpacity(0.15)
+                      : AppColors.error.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
                       controller.isNfcSupported.value
-                          ? Icons.check_circle
-                          : Icons.error,
+                          ? Icons.check_circle_outline
+                          : Icons.error_outline,
                       color: controller.isNfcSupported.value
                           ? AppColors.success
                           : AppColors.error,
-                      size: 16,
+                      size: 16.w,
                     ),
-                    SizedBox(width: 8),
+                    SizedBox(width: 8.w),
                     Text(
                       controller.isNfcSupported.value
-                          ? 'NFC Ready'
-                          : 'NFC Not Supported',
+                          ? 'NFC Enabled'
+                          : 'NFC Unavailable',
                       style: TextStyle(
                         color: controller.isNfcSupported.value
                             ? AppColors.success
                             : AppColors.error,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               )),
-
-              SizedBox(height: 20),
+              SizedBox(height: 16.h),
             ],
           ),
         ),

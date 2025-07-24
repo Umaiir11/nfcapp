@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nfcapp/widgets/custom_snackbar.dart';
@@ -33,18 +35,21 @@ class NfcController extends GetxController {
   }
 
   Future<void> _checkNfcIntent() async {
-    if (!isNfcSupported.value) return; // Skip if NFC is not supported
+    if (!isNfcSupported.value) return;
     try {
-      final intentAction = await platform.invokeMethod('checkNfcIntent');
-      if (intentAction != null && intentAction.contains('android.nfc.action')) {
-        Logger.info('NFC intent detected: $intentAction');
-        await readNfcCard();
+      if (Platform.isAndroid) {
+        final intentAction = await platform.invokeMethod('checkNfcIntent');
+        if (intentAction != null && intentAction.contains('android.nfc.action')) {
+          Logger.info('NFC intent detected: $intentAction');
+          await readNfcCard();
+        }
+      } else if (Platform.isIOS) {
+        Logger.info('Skipping NFC intent check on iOS, relying on flutter_nfc_kit');
       }
     } catch (e) {
       Logger.error('Error checking NFC intent: $e');
     }
   }
-
   Future<void> readNfcCard() async {
     if (!isNfcSupported.value) {
       CustomSnackbar.showError('NFC is not supported');
