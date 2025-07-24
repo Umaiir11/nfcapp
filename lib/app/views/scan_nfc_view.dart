@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../app_colors.dart';
-import '../main.dart';
-import '../nfc_controller.dart';
-import '../widgets/custom_button.dart';
+import '../../widgets/custom_button.dart';
+import '../configs/app_colors.dart';
+import '../controller/nfc_controller.dart';
 import 'nfc_card_view.dart';
 
 class ScanNfcScreen extends StatelessWidget {

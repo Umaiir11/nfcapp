@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nfcapp/widgets/custom_snackbar.dart';
-import 'logger.dart';
-import 'nfc_service.dart';
+import '../service/logger.dart';
+import '../service/nfc_service.dart';
 
 class NfcController extends GetxController {
   static const platform = MethodChannel('com.example.nfcapp/nfc');

@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../app_colors.dart';
-import '../widgets/custom_snackbar.dart';
+import '../../widgets/custom_snackbar.dart';
+import '../configs/app_colors.dart';
 
 class NfcCardView extends StatelessWidget {
   final String title;

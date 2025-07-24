@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:nfcapp/views/splash_view.dart';
 
+import 'app/configs/app_colors.dart';
+import 'app/views/splash_view.dart';
 import 'app_bindings.dart';
-import 'app_colors.dart';
 
 void main() {
   runApp(MyApp());
