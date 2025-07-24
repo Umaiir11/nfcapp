@@ -1,16 +1,45 @@
-# nfcapp
+# 🔥 NFC App - Flutter + Native Android Integration
 
-A new Flutter project.
+A blazing fast Flutter app for reading and writing NFC tags with **MethodChannel magic** 🪄 to handle Android NFC intents, avoid app restarts, and support **MifareClassic**, **NDEF**, and more — all in a clean, DRY, and scalable architecture.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Features
 
-A few resources to get you started if this is your first Flutter project:
+- 📲 **Read NFC Tags**  
+  Seamlessly read NDEF data or raw tag IDs using polling or Android intent triggers.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ✍️ **Write NFC Tags**  
+  Write text to NDEF-compatible tags with UTF-8 support.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 🔌 **MethodChannel Bridge**  
+  Connects Android NFC intents to Flutter in real-time for background tag processing.
+
+- 🔒 **Prevent App Restarts**  
+  Uses `launchMode="singleTask"` and foreground dispatch to ensure smooth, uninterrupted reads.
+
+- 🛠️ **Robust Error Handling**  
+  Handles unsupported tags, disconnections, and retries gracefully.
+
+- 🧠 **Clean Architecture**  
+  Based on **LayerX** pattern and **GetX**, ensuring clean separation of logic.
+
+- 📜 **Detailed Logs**  
+  Prints helpful logs (tag info, payloads, intent status) for debugging and analytics.
+
+---
+
+## 📦 Requirements
+
+- ✅ Flutter SDK `3.0.0+`
+- ✅ Android device with **NFC support**
+- ✅ [`flutter_nfc_kit`](https://pub.dev/packages/flutter_nfc_kit) `^3.6.0+`
+- ✅ Minimum Android SDK: `26+`
+
+---
+
+## 🛠 Installation
+
+```bash
+cd nfc_app
+flutter pub get
