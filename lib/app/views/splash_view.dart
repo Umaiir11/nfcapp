@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../configs/app_colors.dart';
+import '../configs/app_routes.dart';
 import 'home_view.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.forward();
 
     Future.delayed(Duration(milliseconds: 2000), () {
-      Get.off(() => HomeScreen());
+      Get.offAllNamed(AppRoutes.homeView);
     });
   }
 

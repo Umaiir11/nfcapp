@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 
 import 'app/configs/app_colors.dart';
+import 'app/configs/app_routes.dart';
 import 'app/views/splash_view.dart';
 import 'app_bindings.dart';
 
@@ -23,8 +24,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.background,
         fontFamily: 'Roboto',
       ),
-      initialBinding: AppBindings(),
-      home: SplashScreen(),
+      initialRoute: AppRoutes.splashView,
+      getPages: AppPages.routes,
     );
   }
 }

@@ -7,7 +7,7 @@ import '../configs/app_colors.dart';
 import '../controller/nfc_controller.dart';
 
 class WriteNfcScreen extends StatelessWidget {
-  final NfcController controller = Get.find<NfcController>();
+  final NfcController _controller = Get.find<NfcController>();
   final TextEditingController textController = TextEditingController();
 
   @override
@@ -71,15 +71,15 @@ class WriteNfcScreen extends StatelessWidget {
                     fillColor: AppColors.surface,
                     contentPadding: EdgeInsets.all(16.w),
                   ),
-                  onChanged: (value) => controller.updateWriteData(value),
+                  onChanged: (value) => _controller.updateWriteData(value),
                   style: TextStyle(fontSize: 14.sp, color: AppColors.textPrimary, height: 1.4),
                 ),
               ),
               SizedBox(height: 32.h),
               Obx(
                 () => PrimaryButton(
-                  text: controller.isLoading.value ? 'Writing...' : 'Write Sign-Out',
-                  onPressed: (controller.isLoading.value || controller.writeData.value.isEmpty) ? null : controller.writeToNfcCard,
+                  text: _controller.isLoading.value ? 'Writing...' : 'Write Sign-Out',
+                  onPressed: (_controller.isLoading.value || _controller.writeData.value.isEmpty) ? null : _controller.writeToNfcCard,
                   color: AppColors.primaryDark,
                   icon: Icons.edit,
                 ),

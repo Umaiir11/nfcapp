@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:nfcapp/app/configs/app_routes.dart';
 
 import '../../widgets/custom_button.dart';
 import '../configs/app_colors.dart';
@@ -9,7 +10,7 @@ import 'scan_nfc_view.dart';
 import 'write_nfc.dart';
 
 class HomeScreen extends StatelessWidget {
-  final NfcController controller = Get.find<NfcController>();
+  final NfcController _controller = Get.find<NfcController>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,14 +91,14 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 40.h),
               PrimaryButton(
                 text: 'Sign In',
-                onPressed: () => Get.to(() => ScanNfcScreen()),
+                onPressed: () => Get.toNamed(AppRoutes.scanCardView),
                 color: AppColors.primary,
                 icon: Icons.login,
               ),
               SizedBox(height: 16.h),
               PrimaryButton(
                 text: 'Sign Out',
-                onPressed: () => Get.to(() => WriteNfcScreen()),
+                onPressed: () => Get.toNamed(AppRoutes.writeCardView),
                 color: AppColors.primary.withOpacity(0.8),
                 icon: Icons.logout,
               ),
@@ -105,7 +106,7 @@ class HomeScreen extends StatelessWidget {
               Obx(() => Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 decoration: BoxDecoration(
-                  color: controller.isNfcSupported.value
+                  color: _controller.isNfcSupported.value
                       ? AppColors.success.withOpacity(0.15)
                       : AppColors.error.withOpacity(0.15),
                   borderRadius: BorderRadius.circular(20.r),
@@ -114,21 +115,21 @@ class HomeScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      controller.isNfcSupported.value
+                      _controller.isNfcSupported.value
                           ? Icons.check_circle_outline
                           : Icons.error_outline,
-                      color: controller.isNfcSupported.value
+                      color: _controller.isNfcSupported.value
                           ? AppColors.success
                           : AppColors.error,
                       size: 16.w,
                     ),
                     SizedBox(width: 8.w),
                     Text(
-                      controller.isNfcSupported.value
+                      _controller.isNfcSupported.value
                           ? 'NFC Enabled'
                           : 'NFC Unavailable',
                       style: TextStyle(
-                        color: controller.isNfcSupported.value
+                        color: _controller.isNfcSupported.value
                             ? AppColors.success
                             : AppColors.error,
                         fontSize: 12.sp,

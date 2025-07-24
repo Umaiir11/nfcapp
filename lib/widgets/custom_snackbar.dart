@@ -1,67 +1,81 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 import '../app/configs/app_colors.dart';
 
 class CustomSnackbar {
-  static void show({
+  static void _show({
+    required String title,
     required String message,
     required Color backgroundColor,
-    required IconData icon,
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = const Duration(seconds: 2),
   }) {
+    Get.closeCurrentSnackbar();
+
     Get.snackbar(
       '',
-      message,
+      '',
+      titleText: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
+      ),
+      messageText: Text(
+        message,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w400,
+          color: Colors.white70,
+        ),
+      ),
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: backgroundColor,
-      colorText: AppColors.surface,
+      borderRadius: 6,
+      margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       duration: duration,
-      margin: EdgeInsets.all(16),
-      borderRadius: 12,
-      icon: Icon(
-        icon,
-        color: AppColors.surface,
-      ),
+      animationDuration: const Duration(milliseconds: 180),
+      isDismissible: true,
       shouldIconPulse: false,
-      barBlur: 20,
+      barBlur: 0,
+      overlayBlur: 0,
+      icon: null,
+      forwardAnimationCurve: Curves.easeOut,
     );
   }
 
   static void showSuccess(String message) {
-    show(
+    _show(
+      title: 'Success',
       message: message,
       backgroundColor: AppColors.success,
-      icon: Icons.check_circle,
     );
   }
 
   static void showError(String message) {
-    show(
+    _show(
+      title: 'Error',
       message: message,
       backgroundColor: AppColors.error,
-      icon: Icons.error,
     );
   }
 
   static void showInfo(String message) {
-    show(
+    _show(
+      title: 'Info',
       message: message,
       backgroundColor: AppColors.primary,
-      icon: Icons.info,
     );
   }
 
   static void showWarning(String message) {
-    show(
+    _show(
+      title: 'Warning',
       message: message,
       backgroundColor: AppColors.warning,
-      icon: Icons.warning,
     );
   }
 }

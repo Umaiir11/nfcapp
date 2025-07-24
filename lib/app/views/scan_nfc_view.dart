@@ -8,7 +8,7 @@ import '../controller/nfc_controller.dart';
 import 'nfc_card_view.dart';
 
 class ScanNfcScreen extends StatelessWidget {
-  final NfcController controller = Get.find<NfcController>();
+  final NfcController _controller = Get.find<NfcController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +51,17 @@ class ScanNfcScreen extends StatelessWidget {
                 width: 180.w,
                 height: 180.w,
                 decoration: BoxDecoration(
-                  color: controller.isLoading.value
+                  color: _controller.isLoading.value
                       ? AppColors.primary.withOpacity(0.1)
                       : AppColors.surface,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: controller.isLoading.value
+                    color: _controller.isLoading.value
                         ? AppColors.primary
                         : AppColors.divider.withOpacity(0.5),
                     width: 1.5.w,
                   ),
-                  boxShadow: controller.isLoading.value
+                  boxShadow: _controller.isLoading.value
                       ? [
                     BoxShadow(
                       color: AppColors.primary.withOpacity(0.2),
@@ -72,7 +72,7 @@ class ScanNfcScreen extends StatelessWidget {
                       : [],
                 ),
                 child: Center(
-                  child: controller.isLoading.value
+                  child: _controller.isLoading.value
                       ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -122,17 +122,17 @@ class ScanNfcScreen extends StatelessWidget {
               ),
               SizedBox(height: 32.h),
               Obx(() => PrimaryButton(
-                text: controller.isLoading.value ? 'Scanning...' : 'Start Scan',
-                onPressed: controller.isLoading.value ? null : controller.readNfcCard,
+                text: _controller.isLoading.value ? 'Scanning...' : 'Start Scan',
+                onPressed: _controller.isLoading.value ? null : _controller.readNfcCard,
                 color: AppColors.primary,
                 icon: Icons.radar,
               )),
               SizedBox(height: 24.h),
-              Obx(() => controller.cardData.value.isNotEmpty
+              Obx(() => _controller.cardData.value.isNotEmpty
                   ? NfcCardView(
                 title: 'Staff Card Data',
-                data: controller.cardData.value,
-                onClear: controller.clearCardData,
+                data: _controller.cardData.value,
+                onClear: _controller.clearCardData,
               )
                   : SizedBox.shrink()),
               Spacer(),
